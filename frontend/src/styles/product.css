@@ -1,0 +1,33 @@
+.card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* spacing between buttons */
+  margin-top: 10px;
+  flex-wrap: wrap; /* prevents overflow on small screens */
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: orange;
+  color: black;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05); /* zoom in */
+  filter: brightness(0.9); /* darken */
+}
+
+/* optional styling for better UX */
+.btn.secondary {
+  background-color: #ddd;
+}
+
+.btn.danger {
+  background-color: #ff6b6b;
+  color: white;
+}
