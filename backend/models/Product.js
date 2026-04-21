@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const CATEGORIES = require("../constants/categories");
 
 const productSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -9,7 +10,7 @@ const productSchema = new mongoose.Schema({
 
   category: {
     type: String,
-    enum: ["electronics", "men", "women", "jwellery"],
+    enum: CATEGORIES,
     required: true
   },
 

@@ -45,8 +45,8 @@ function App() {
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("");
 
-  const { data = [], isLoading, isError } = useQuery({
-    queryKey: ["products", { search, category, sort }],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products", { search, category, sort, page: 1 }],
     queryFn: fetchProducts
   });
 
@@ -109,7 +109,7 @@ function App() {
                   ) : isError ? (
                     <div>Error loading data</div>
                   ) : (
-                    data.map((product) => (
+                    data?.products?.map((product)  => (
                       <ProductCard
                         key={product._id}
                         product={product}

@@ -2,7 +2,13 @@ const Product = require("../models/Product");
 
 const createProduct = (data) => Product.create(data);
 
-const getAllProducts = async ({ search, category, sort }) => {
+const getAllProducts = async ({
+  search,
+  category,
+  sort,
+  page = 1,
+  limit = 8
+}) => {
   let query = {};
 
   // SEARCH
@@ -10,20 +16,35 @@ const getAllProducts = async ({ search, category, sort }) => {
     query.title = { $regex: search, $options: "i" };
   }
 
-  //  CATEGORY
+  //CATEGORY
   if (category) {
     query.category = category;
   }
 
+  // PAGINATION CALCULATION
+  const skip = (page - 1) * limit;
+
   let dbQuery = Product.find(query)
     .select("title price category image user")
-    .populate("user", "name");
+    .populate("user", "name")
+    .skip(skip)
+    .limit(Number(limit));
 
-  // SORT
+  // SORTING
   if (sort === "low") dbQuery = dbQuery.sort({ price: 1 });
   if (sort === "high") dbQuery = dbQuery.sort({ price: -1 });
 
-  return dbQuery;
+  const products = await dbQuery;
+
+  // TOTAL COUNT
+  const total = await Product.countDocuments(query);
+
+  return {
+    products,
+    total,
+    page: Number(page),
+    pages: Math.ceil(total / limit)
+  };
 };
 
 const getProductById = (id) =>

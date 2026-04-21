@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const CATEGORIES = require("../constants/categories");
 
 const productSchema = Joi.object({
   title: Joi.string().required().messages({
@@ -12,10 +13,13 @@ const productSchema = Joi.object({
 
   description: Joi.string().allow("").optional(),
 
-  category: Joi.string().required().messages({                     //.allow(.,..).messages->category-enum
-    "string.empty": "Category is required"
-
-  })
+  category: Joi.string()
+    .valid(...CATEGORIES)   // allow-> permit values like spaces
+    .required()
+    .messages({
+      "any.only": `Category must be one of ${CATEGORIES.join(", ")}`,
+      "string.empty": "Category is required"
+    })
 });
 
 //multer
