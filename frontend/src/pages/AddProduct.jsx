@@ -46,12 +46,12 @@ function AddProduct() {
 
         queryClient.invalidateQueries(["products"]);
 
-        toast.success("Product added successfully"); 
+        toast.success("Product added successfully");
 
         navigate("/");
 
       } catch (err) {
-        toast.error(err); 
+        toast.error(err);
       }
     }
   });

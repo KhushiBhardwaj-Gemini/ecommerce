@@ -7,7 +7,7 @@ const getAllProducts = async ({
   category,
   sort,
   page = 1,
-  limit = 8
+  limit = 15
 }) => {
   let query = {};
 
@@ -18,14 +18,14 @@ const getAllProducts = async ({
 
   //CATEGORY
   if (category) {
-    query.category = category;
+    query.category = category;                              //aggregate query-to read
   }
 
   // PAGINATION CALCULATION
   const skip = (page - 1) * limit;
 
   let dbQuery = Product.find(query)
-    .select("title price category image user")
+    .select("title price category image user")                           //select->from current tavle, populate->join on other table- here users--user_id ko map with actual user details-name
     .populate("user", "name")
     .skip(skip)
     .limit(Number(limit));

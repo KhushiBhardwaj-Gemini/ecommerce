@@ -66,7 +66,7 @@ const updateProduct = async (req, res) => {
 
     const updatedData = {};
 
-    if (req.body.title) updatedData.title = req.body.title;
+    if (req.body.title) updatedData.title = req.body.title;                     //becsause if user sends no title the value may become undefined and may overwritre the data
     if (req.body.price) updatedData.price = req.body.price;
     if (req.body.description) updatedData.description = req.body.description;
     if (req.body.category) updatedData.category = req.body.category;
