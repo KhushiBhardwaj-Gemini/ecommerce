@@ -1,9 +1,9 @@
 .card-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px; /* spacing between buttons */
+  gap: 10px;
   margin-top: 10px;
-  flex-wrap: wrap; /* prevents overflow on small screens */
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -18,11 +18,10 @@
 }
 
 .btn:hover {
-  transform: scale(1.05); /* zoom in */
-  filter: brightness(0.9); /* darken */
+  transform: scale(1.05);
+  filter: brightness(0.9);
 }
 
-/* optional styling for better UX */
 .btn.secondary {
   background-color: #ddd;
 }

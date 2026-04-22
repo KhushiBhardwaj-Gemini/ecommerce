@@ -18,10 +18,7 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const handleDelete = async (id, e) => {
-    e.stopPropagation(); 
-    // const confirmDelete = window.confirm("Are you sure you want to delete?");
-    // if (!confirmDelete) return;
-
+    e.stopPropagation();
     try {
       await API.delete(`/products/${id}`);
       queryClient.invalidateQueries(["products"]);
@@ -31,16 +28,11 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
     }
   };
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + Number(item.price),
-    0
-  );
+  const total = cartItems.reduce((acc, item) => acc + Number(item.price), 0);
 
   const willExceedBudget = budget && total + product.price > budget;
 
-  const isInCart = cartItems.some(
-    (item) => item._id === product._id
-  );
+  const isInCart = cartItems.some((item) => item._id === product._id);
 
   return (
     <div
@@ -50,7 +42,7 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
       <div className="image-container">
         <img
           src={`http://localhost:5000/uploads/${product.image}`}
-          alt={product.title}
+          alt={product.title ?? "Product Image here"}
         />
       </div>
 
@@ -58,13 +50,12 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
       <div className="price">${product.price}</div>
 
       <div className="card-buttons">
-
         {/* REMOVE FROM CART */}
         {isCart ? (
           <button
             className="btn"
             onClick={(e) => {
-              e.stopPropagation(); 
+              e.stopPropagation();
               dispatch(removeFromCart(product._id));
             }}
           >
@@ -75,7 +66,7 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
             className="btn"
             disabled={isInCart || willExceedBudget}
             onClick={(e) => {
-              e.stopPropagation(); 
+              e.stopPropagation();
               dispatch(addToCart(product));
             }}
           >
@@ -95,7 +86,7 @@ const ProductCard = ({ product, darkMode, isCart = false }) => {
               <button
                 className="btn secondary"
                 onClick={(e) => {
-                  e.stopPropagation(); 
+                  e.stopPropagation();
                   navigate(`/edit/${product._id}`);
                 }}
               >

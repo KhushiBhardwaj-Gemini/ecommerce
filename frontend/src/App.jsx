@@ -4,7 +4,6 @@ import axios from "axios";
 import { Sun, Moon } from "lucide-react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import ProductCard from "./components/ProductCard";
 import Input from "./components/Input";
 import Select from "./components/Select";
@@ -12,19 +11,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
 import About from "./pages/About";
-
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
 import ProductDetails from "./pages/ProductDetails";
-
-// import { CATEGORY_OPTIONS } from "./utils/constants";
-// import { renderOptions } from "./utils/helpers";
-
 import "./styles/app.css";
-
 
 import API from "./utils/api";
 
@@ -32,7 +25,7 @@ const fetchProducts = async ({ queryKey }) => {
   const [, params] = queryKey;
 
   const res = await API.get("/products", {
-    params
+    params,
   });
 
   return res.data;
@@ -47,7 +40,7 @@ function App() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", { search, category, sort, page: 1 }],
-    queryFn: fetchProducts
+    queryFn: fetchProducts,
   });
 
   return (
@@ -55,7 +48,6 @@ function App() {
       <Navbar />
 
       <Routes>
-
         {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -70,7 +62,6 @@ function App() {
               <>
                 <div className="controls">
                   <div className="left-controls">
-
                     <Input
                       placeholder="Search..."
                       value={search}
@@ -99,7 +90,6 @@ function App() {
                       <option value="low">Low → High</option>
                       <option value="high">High → Low</option>
                     </Select>
-
                   </div>
                 </div>
 
@@ -109,7 +99,7 @@ function App() {
                   ) : isError ? (
                     <div>Error loading data</div>
                   ) : (
-                    data?.products?.map((product)  => (
+                    data?.products?.map((product) => (
                       <ProductCard
                         key={product._id}
                         product={product}
@@ -167,7 +157,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
       </Routes>
       <Footer />
     </div>

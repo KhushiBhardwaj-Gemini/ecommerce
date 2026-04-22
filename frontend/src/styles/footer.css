@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -8,14 +10,12 @@ html, body, #root {
   min-height: 100vh;
 }
 
-
 .footer {
   margin-top: auto;
   padding-top: 20px;
   background: linear-gradient(90deg, #111, #1a1a1a);
   color: white;
 }
-
 
 .footer-top {
   display: grid;
@@ -41,7 +41,6 @@ html, body, #root {
   font-size: 14px;
 }
 
-
 .footer-bottom {
   border-top: 1px solid #333;
   padding: 15px 30px;
@@ -54,7 +53,6 @@ html, body, #root {
   font-weight: 600;
   color: orange;
 }
-
 
 .dark .footer {
   background: #000;

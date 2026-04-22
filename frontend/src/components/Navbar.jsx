@@ -15,9 +15,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-
-
-
   return (
     <div className="navbar">
       <div className="nav-left">
@@ -29,7 +26,6 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         <Link to="/about">About Us</Link>
 
-
         <Link to="/cart" className="cart-link">
           <ShoppingCart size={18} />
           <span className="cart-badge">{cartItems.length}</span>
@@ -37,19 +33,19 @@ const Navbar = () => {
 
         <Link to="/add-product">Add Product</Link>
 
-        {user && (
-          <span className="nav-user">
-            Hi, {user.name}
-          </span>
-        )}
+        {user && <span className="nav-user">Hi, {user.name}</span>}
         {token ? (
           <span className="nav-link" onClick={handleLogout}>
             Logout
           </span>
         ) : (
           <>
-            <Link to="/login" className="auth-btn">Login</Link>
-            <Link to="/register" className="auth-btn">Register</Link>
+            <Link to="/login" className="auth-btn">
+              Login
+            </Link>
+            <Link to="/register" className="auth-btn">
+              Register
+            </Link>
           </>
         )}
       </div>

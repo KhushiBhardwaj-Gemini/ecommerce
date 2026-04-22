@@ -13,9 +13,9 @@ const createProduct = async (req, res) => {
         price: req.body.price,
         description: req.body.description,
         category: req.body.category?.toLowerCase().trim(),
-        image: req.file.filename
+        image: req.file.filename,
       },
-      req.user.id
+      req.user.id,
     );
 
     res.status(201).json(product);
@@ -38,11 +38,9 @@ const getProducts = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
     const product = await productService.getProductById(req.params.id);
-
     if (!product) {
       return res.status(404).json({ msg: "Product not found" });
     }
-
     res.json(product);
   } catch (err) {
     res.status(500).json({ msg: err.message });
@@ -54,7 +52,7 @@ const updateProduct = async (req, res) => {
   try {
     const product = await productService.getProductById(req.params.id);
 
-   //check if product exists
+    //check if product exists
     if (!product) {
       return res.status(404).json({ msg: "Product not found" });
     }
@@ -66,7 +64,7 @@ const updateProduct = async (req, res) => {
 
     const updatedData = {};
 
-    if (req.body.title) updatedData.title = req.body.title;                     //becsause if user sends no title the value may become undefined and may overwritre the data
+    if (req.body.title) updatedData.title = req.body.title;
     if (req.body.price) updatedData.price = req.body.price;
     if (req.body.description) updatedData.description = req.body.description;
     if (req.body.category) updatedData.category = req.body.category;
@@ -77,7 +75,7 @@ const updateProduct = async (req, res) => {
 
     const updated = await productService.updateProduct(
       req.params.id,
-      updatedData
+      updatedData,
     );
 
     res.json(updated);
@@ -101,7 +99,6 @@ const deleteProduct = async (req, res) => {
     }
 
     await productService.deleteProduct(req.params.id);
-
     res.json({ msg: "Product deleted" });
   } catch (err) {
     res.status(500).json({ msg: err.message });
@@ -113,38 +110,5 @@ module.exports = {
   getProducts,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

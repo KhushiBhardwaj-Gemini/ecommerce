@@ -9,5 +9,5 @@ const Select = ({ value, onChange, children, darkMode }) => {
     </select>
   );
 };
- 
+
 export default Select;
