@@ -1,4 +1,4 @@
-/* Outer container - full width */
+/* Outer container */
 .product-details-container {
   width: 100%;
   min-height: 80vh;
@@ -23,11 +23,11 @@
   text-align: center;
 }
 
-/* Image - NO CROPPING */
+/* Image */
 .product-details-image {
   width: 200px;
-  height: auto;              /* important: prevents cutting */
-  object-fit: contain;       /* ensures full image visible */
+  height: auto;
+  object-fit: contain;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -51,7 +51,7 @@
   color: #000;
 }
 
-/* Back button - centered bottom */
+/* Back button */
 .back-btn {
   margin-top: 30px;
   padding: 10px 20px;

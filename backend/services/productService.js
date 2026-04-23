@@ -3,7 +3,7 @@ const productRepository = require("../repositories/productRepository");
 const createProduct = (data, userId) => {
   return productRepository.createProduct({
     ...data,
-    user: userId
+    user: userId,
   });
 };
 
@@ -28,5 +28,5 @@ module.exports = {
   getProducts,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

@@ -16,7 +16,7 @@ function AddProduct() {
       price: "",
       description: "",
       category: "",
-      image: null
+      image: null,
     },
 
     validationSchema: Yup.object({
@@ -25,7 +25,7 @@ function AddProduct() {
         .typeError("Price must be a number")
         .required("Price is required"),
       description: Yup.string(),
-      category: Yup.string().required("Category is required")
+      category: Yup.string().required("Category is required"),
     }),
 
     onSubmit: async (values) => {
@@ -40,20 +40,19 @@ function AddProduct() {
 
         await API.post("/products", formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         });
 
         queryClient.invalidateQueries(["products"]);
 
-        toast.success("Product added successfully"); 
+        toast.success("Product added successfully");
 
         navigate("/");
-
       } catch (err) {
-        toast.error(err); 
+        toast.error(err);
       }
-    }
+    },
   });
 
   return (
@@ -61,7 +60,6 @@ function AddProduct() {
       <h2>Add Product</h2>
 
       <form onSubmit={formik.handleSubmit}>
-
         {/*product title*/}
         <input
           name="title"

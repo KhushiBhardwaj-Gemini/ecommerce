@@ -19,7 +19,7 @@ function EditProduct() {
     queryFn: async () => {
       const res = await API.get(`/products/${id}`);
       return res.data;
-    }
+    },
   });
 
   // Form setup
@@ -30,7 +30,7 @@ function EditProduct() {
       price: data?.price || "",
       description: data?.description || "",
       category: data?.category || "",
-      image: null
+      image: null,
     },
 
     onSubmit: async (values) => {
@@ -47,13 +47,10 @@ function EditProduct() {
 
         await API.patch(`/products/${id}`, formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         });
-
-        // Refresh product list
         queryClient.invalidateQueries(["products"]);
-
         toast.success("Product updated successfully");
 
         navigate("/");
@@ -61,7 +58,7 @@ function EditProduct() {
         setError(err);
         toast.error(err);
       }
-    }
+    },
   });
 
   // Loading state
@@ -78,7 +75,6 @@ function EditProduct() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form onSubmit={formik.handleSubmit}>
-
         {/* title */}
         <input
           name="title"

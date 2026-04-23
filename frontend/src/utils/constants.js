@@ -5,4 +5,3 @@ export const CATEGORY_OPTIONS = [
   { label: "Electronics", value: "electronics" },
   { label: "Jewelery", value: "jewelery" },
 ];
-

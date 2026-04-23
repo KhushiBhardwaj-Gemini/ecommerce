@@ -1,65 +1,74 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import API from "../utils/api";
-import Input from "../components/Input";
+import Input from "../components/form/TextInput/index.jsx";
 import "../styles/auth.css";
 
-
 function Login() {
-    const navigate = useNavigate();
-    const [error, setError] = useState("");
-    const [form, setForm] = useState({
-        email: "",
-        password: ""
-    });
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
 
+      password: Yup.string()
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/,
+          "Password must contain letters, numbers and at least one special character",
+        )
+        .required("Password is required"),
+    }),
 
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      try {
+        const res = await API.post("/auth/login", values);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+        localStorage.setItem("token", res.data.token);
 
-        try {
-            const res = await API.post("/auth/login", form);
-            localStorage.setItem("token", res.data.token); //caall token
-            const userRes = await API.get("/auth/me");  //call /me API
-            localStorage.setItem("user", JSON.stringify(userRes.data)); //store user
-            navigate("/"); // redirect home
+        const userRes = await API.get("/auth/me");
+        localStorage.setItem("user", JSON.stringify(userRes.data));
 
-        } catch (err) {
-            setError(err.response?.data?.msg || "Something went wrong");
-        }
-    };
+        navigate("/");
+      } catch (err) {
+        setErrors({
+          general: err.response?.data?.msg || "Login failed",
+        });
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
-    return (
-        <div className="auth-container">
-            <h2>Login</h2>
+  return (
+    <div className="auth-container">
+      <h2>Login</h2>
 
-            <form onSubmit={handleSubmit}>
-                {error && <p className="error-text">{error}</p>}
-                <Input
-                    placeholder="Email"
-                    onChange={(e) =>
-                        setForm({ ...form, email: e.target.value })
-                    }
-                />
+      <form onSubmit={formik.handleSubmit}>
+        {formik.errors.general && (
+          <p className="error-text">{formik.errors.general}</p>
+        )}
 
-                <Input
-                    placeholder="Password"
-                    type="password"
-                    onChange={(e) => {
-                        setForm({ ...form, password: e.target.value });
-                        setError("");
-                    }}
-                />
+        <Input name="email" placeholder="Email" formik={formik} />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          formik={formik}
+        />
 
-                <button>Login</button>
-            </form>
-
-            <p>
-                Don't have an account? <a href="/register">Register</a>
-            </p>
-        </div>
-    );
+        <button type="submit" disabled={formik.isSubmitting}>
+          {formik.isSubmitting ? "Logging in..." : "Login"}
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default Login;

@@ -5,12 +5,10 @@ const findUserByEmail = (email) => {
   return User.findOne({ email });
 };
 
-
 // create user
 const createUser = (data) => {
   return User.create(data);
 };
-
 
 const findUserById = (id) => {
   return User.findById(id).select("-password -__v");
@@ -19,5 +17,5 @@ const findUserById = (id) => {
 module.exports = {
   findUserByEmail,
   createUser,
-  findUserById
+  findUserById,
 };

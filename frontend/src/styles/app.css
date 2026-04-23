@@ -170,21 +170,13 @@ body {
   font-weight: 600;
 }
 
-
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 20px;           /* slightly tighter */
-  margin-right: 50px;  /* reduce overflow */
+  gap: 20px;
+  margin-right: 50px;
   white-space: nowrap;
 }
-/* .nav-right {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  margin-right: 70px;
-  white-space: nowrap;
-} */
 
 .nav-user {
   color: #ddd;
@@ -198,7 +190,6 @@ body {
   white-space: nowrap;
 }
 
-/* 🔥 unified link style (used for Link + Logout span) */
 .nav-right a,
 .nav-link {
   color: white;
